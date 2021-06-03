@@ -172,6 +172,7 @@ to a pre-existing account.
 """
 def manage_customer(customer):
 
+    # user input should be one of the four choices (menu below)
     user_input = None
     choices = {"A","B","L","R"}
 
