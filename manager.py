@@ -55,6 +55,33 @@ def get_and_validate_date_input():
     return str(date)[0:10]
 
 """
+Helper function to increase readability of other functions in program by
+removing the block of print statements at the start of function and putting them
+in this function.
+"""
+def print_choices(function):
+
+    if function == "add_bank":
+        print("\nE: create an empty bank")
+        print("F: create a bank from a data file")
+        print("R: Return to previous choices")
+    elif function == "manage_bank":
+        print("\nC: Add a customer from the CLI")
+        print("F: Add customer(s) from a file")
+        print("M: Manage a customer at this bank")
+        print("R: Return to previous choices")
+    elif function == "manage_customer":
+        print("\nA: Add an account to this customer")
+        print("B: Add balance to a pre-existing account")
+        print("L: View log of an account's transaction history")
+        print("R: Return to previous choices")
+    else:
+        print("\nA: Add a bank")
+        print("M: Manage a bank")
+        print("S: Save all bank data")
+        print("Q: Quit out of program")
+
+"""
 Function to add a banks to the dictionary of all banks.
 User can create an empty bank and will be prompted for a name,
 or user can import a bank from a file.
@@ -65,9 +92,7 @@ def add_bank():
     choices = {"E","F","R"}
     while user_input != "R":
 
-        print("\nE: create an empty bank")
-        print("F: create a bank from a data file")
-        print("R: Return to previous choices")
+        print_choices("add_bank")
 
         user_input = input("Please enter your choice: ").upper()
 
@@ -101,6 +126,8 @@ def select_bank():
 
         print("List of banks: \n")
         print("\n".join(banks.keys()))
+        print("\n")
+
         user_input = input("Please enter the name of a bank, or R to return to previous choices: ")
 
         if user_input == "R" or user_input == "r":
@@ -125,10 +152,7 @@ def manage_bank(bank_name):
         print("Managing {} currently".format(bank_name))
         print("Current funds held: {}".format(banks[bank_name].total_funds()))
 
-        print("\nC: Add a customer from the CLI")
-        print("F: Add customer(s) from a file")
-        print("M: Manage a customer at this bank")
-        print("R: Return to previous choices")
+        print_choices("manage_bank")
 
         user_input = input("Please enter your choice: ").upper()
 
@@ -180,10 +204,7 @@ def manage_customer(customer):
         print("\n")
         print(customer)
 
-        print("\nA: Add an account to this customer")
-        print("B: Add balance to a pre-existing account")
-        print("L: View log of an account's transaction history")
-        print("R: Return to previous choices")
+        print_choices("manage_customer")
 
         user_input = input("Please enter choice: ").upper()
 
@@ -204,7 +225,7 @@ def manage_customer(customer):
                 amount = get_and_validate_currency_input(name)
                 try:
                     transaction_name = input("Enter note for transaction (optional): ")
-                    transaction_name = "N/A" if transaction_name.strip() = "" else transaction_name.rstrip()
+                    transaction_name = "N/A" if transaction_name.strip() == "" else transaction_name.rstrip()
                     customer.add_balance(name, amount, transaction_name)
                     print("Funds successfully added!")
                 except KeyError:
@@ -229,10 +250,7 @@ if __name__ == '__main__':
     choices = {"A","M","S","Q"}
     while user_input != "Q":
 
-        print("\nA: Add a bank")
-        print("M: Manage a bank")
-        print("S: Save all bank data")
-        print("Q: Quit out of program")
+        print_choices("")
 
         user_input = input("Please enter your choice: ").upper()
 
