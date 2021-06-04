@@ -142,6 +142,11 @@ def select_bank():
 Function to manage the input commands of both the bank and customer
 user_permisions is a string of who the user is bank or customer
 Will return and int of which option they chose
+
+Helper function created by Andrew during training. I like the way he dealt
+with more of the repeated code in the two functions, but he only handles 2
+functions. Will try to implement his idea with user_input in the print_choices
+function I created to address the same issue.
 """
 def check_user_input(user_permisions):
     user_input = None
