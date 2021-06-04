@@ -112,6 +112,36 @@ def select_bank():
                 print("Error, {} not in list of banks".format(user_input))
 
 """
+Function to manage the input commands of both the bank and customer
+user_permisions is a string of who the user is bank or customer
+Will return and int of which option they chose
+"""
+def check_user_input(user_permisions):
+    user_input = None
+    if user_permisions.lower() == "bank":
+        choices = {"C","F","M","R"}
+        print("\nC: Add a customer from the CLI")
+        print("F: Add customer(s) from a file")
+        print("M: Manage a customer at this bank")
+        print("R: Return to previous choices")
+
+    elif user_permisions.lower() == "customer":
+        choices = {"A","B","L","R"}
+        print("\nA: Add an account to this customer")
+        print("B: Add balance to a pre-existing account")
+        print("L: View log of an account's transaction history")
+        print("R: Return to previous choices")
+
+    else:
+        print("Error, {} is not one of the available options".format(user_permisions))
+    user_input = input("Please enter your choice: ").upper()
+    if user_input not in choices:
+        print("Error, {} is not one of the available options".format(user_input))
+        user_input = None
+    return user_input
+
+
+"""
 Function to manage a bank. User can add a customer using the CLI,
 import from a file, or select the option to manage an indiviual customer,
 which will call the appropriate function manage_customer.
@@ -119,18 +149,12 @@ which will call the appropriate function manage_customer.
 def manage_bank(bank_name):
 
     user_input = None
-    choices = {"C","F","M","R"}
     while user_input != "R":
 
         print("Managing {} currently".format(bank_name))
         print("Current funds held: {}".format(banks[bank_name].total_funds()))
 
-        print("\nC: Add a customer from the CLI")
-        print("F: Add customer(s) from a file")
-        print("M: Manage a customer at this bank")
-        print("R: Return to previous choices")
-
-        user_input = input("Please enter your choice: ").upper()
+        user_input = check_user_input("bank")
 
         if user_input not in choices:
             print("Error, {} is not one of the available options".format(user_input))
@@ -173,19 +197,12 @@ to a pre-existing account.
 def manage_customer(customer):
 
     user_input = None
-    choices = {"A","B","L","R"}
-
     while user_input != "R":
 
         print("\n")
         print(customer)
 
-        print("\nA: Add an account to this customer")
-        print("B: Add balance to a pre-existing account")
-        print("L: View log of an account's transaction history")
-        print("R: Return to previous choices")
-
-        user_input = input("Please enter choice: ").upper()
+        user_input = check_user_input("customer")
 
         if user_input not in choices:
             print("Error, {} is not one of the available options".format(user_input))
@@ -204,7 +221,7 @@ def manage_customer(customer):
                 amount = get_and_validate_currency_input(name)
                 try:
                     transaction_name = input("Enter note for transaction (optional): ")
-                    transaction_name = "N/A" if transaction_name.strip() = "" else transaction_name.rstrip()
+                    transaction_name = "N/A" if transaction_name.strip() == "" else transaction_name.rstrip()
                     customer.add_balance(name, amount, transaction_name)
                     print("Funds successfully added!")
                 except KeyError:
