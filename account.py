@@ -14,7 +14,7 @@ class Account():
             self.date = str(datetime.datetime.now())[:10]
 
         self.transactions = []
-        self.transaction("Starting balance", balance)
+        self.transaction("Starting balance", balance, self.date)
 
     def transaction(self, name, amount = 0, date = None):
 
@@ -52,7 +52,7 @@ class Account():
                 log_index += 1
         """
 
-        log = ""
+        log = "Log for {}".format(self.name)
         while log_index < len(self.transactions):
 
             current = self.transactions[log_index]

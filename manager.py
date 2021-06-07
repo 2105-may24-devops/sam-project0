@@ -1,7 +1,9 @@
 from datetime import datetime
+from os import listdir
 from bank import Bank
 
 banks = dict()
+data_location = "data/"
 
 """
 Gets and validates input from user, ensuring input is a numerical
@@ -77,6 +79,7 @@ def print_choices(function):
         print("R: Return to previous choices")
     else:
         print("\nA: Add a bank")
+        print("L: Load all banks in logs")
         print("M: Manage a bank")
         print("S: Save all bank data")
         print("Q: Quit out of program")
@@ -106,7 +109,7 @@ def add_bank():
                 banks[name] = bank
             elif user_input == "F":
                 name = input("Please enter name of Bank: ")
-                file_name = input("Please enter name of file: ")
+                file_name = data_location + input("Please enter name of data file: ")
                 try:
                     bank = Bank(name, file_name)
                     banks[name] = bank
@@ -181,6 +184,7 @@ which will call the appropriate function manage_customer.
 def manage_bank(bank_name):
 
     user_input = None
+    choices = {"C","F","M","R"}
     while user_input != "R":
 
         print("Managing {} currently".format(bank_name))
@@ -200,7 +204,7 @@ def manage_bank(bank_name):
                 print("Customer successfully created!")
                 print(banks[bank_name].customers[ID])
             elif user_input == "F":
-                file_name = input("Please enter name of file: ")
+                file_name = data_location + input("Please enter name of data file: ")
                 try:
                     previous_customer_num = len(banks[bank_name].customers)
                     banks[bank_name].create_customer_from_csv(file_name)
@@ -231,6 +235,7 @@ to a pre-existing account.
 def manage_customer(customer):
 
     user_input = None
+    choices = {"A","B","L","R"}
     while user_input != "R":
 
         print("\n")
@@ -279,7 +284,7 @@ if __name__ == '__main__':
 
     print("Welcome to our Bank Management CLI!")
     user_input = None
-    choices = {"A","M","S","Q"}
+    choices = {"A","L","M","S","Q"}
     while user_input != "Q":
 
         print_choices("")
@@ -292,6 +297,21 @@ if __name__ == '__main__':
         else:
             if user_input == "A":
                 add_bank()
+            elif user_input == "L":
+                files = listdir(data_location)
+                previous_bank_num = len(banks)
+                for file in files:
+                    bank_name = file[:-4]
+                    banks[bank_name] = Bank(bank_name)
+                    print("Loading",bank_name)
+                    try:
+                        banks[bank_name].create_customer_from_csv(data_location + file)
+                    except FileNotFoundError:
+                        print("File {} was not found.".format(file_name))
+
+                new_banks = len(banks) - previous_bank_num
+                print("{} banks loaded".format(str(new_banks)))
+
             elif user_input == "M":
                 if len(banks) > 0:
                     select_bank()
@@ -299,4 +319,4 @@ if __name__ == '__main__':
                     print("Error, no banks are currently loaded.")
             elif user_input == "S":
                 for bank in banks:
-                    banks[bank].export_to_csv(bank + str(datetime.now())[0:10])
+                    banks[bank].export_to_csv(data_location + bank + ".csv")
