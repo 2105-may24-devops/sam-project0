@@ -111,7 +111,7 @@ def add_bank():
                 banks[name] = bank
             elif user_input == "F":
                 name = input("Please enter name of Bank: ")
-                file_name = data_location + input("Please enter name of data file: ")
+                file_name = input("Please enter name of data file: ")
                 try:
                     bank = Bank(name, file_name)
                     banks[name] = bank
@@ -279,7 +279,7 @@ def manage_customer(customer):
                 return
 
 ########################### TESTS ##############################################################
-class TestMethods(unittest.TestCase):
+class TestUserInput(unittest.TestCase):
 
     def test_text_input(self):
         print("Ran Test",test_num)
@@ -289,16 +289,10 @@ class TestMethods(unittest.TestCase):
             assert banks["Bank of Poor Financial Choices"].customers[0].name == "Bad Luck Laurence"
             assert banks["Bank of Poor Financial Choices"].customers[0].accounts["Savings"].balance == 50
         if test_num == 2:
-            assert len(banks) == 2
-
+            assert len(banks) == 1
             assert len(banks["MTB"].customers == 3)
-            assert len(banks["MTB"].customers[0].accounts == 3)
-            assert banks["MTB"].total_funds() == 9138.02
-
-            assert len(banks["BoA"].customers == 2)
-            assert len(banks["BoA"].customers[0].accounts == 2)
-            assert banks["BoA"].total_funds() == 113934.21
-
+            assert len(banks["MTB"].customers[0].accounts == 2)
+            assert banks["MTB"].total_funds() == 7892.25
 
 """
 Main/base of program and user access. User can add or access banks, or
