@@ -1,0 +1,9 @@
+# Code based on Michael's setup.yml
+- name: set up venv for python3
+  hosts: vm5
+  tasks:
+  - name: set up python3 venv
+    pip:
+      requirements: ~/project0/requirements.txt
+      virtualenv: ~/venv
+      virtualenv_command: python3 -m venv

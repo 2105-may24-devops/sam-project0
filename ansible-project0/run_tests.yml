@@ -1,0 +1,4 @@
+- hosts: vm5
+  tasks:
+    - name: Run shell script to run all unit tests in python files
+      command: sh ~/project0/run_tests.sh

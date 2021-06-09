@@ -1,0 +1,14 @@
+- name: Check remote host for python and git version
+  hosts: all
+  tasks:
+ # Not working due to error with yum, using James' code as baseline
+ # - name: Ensure python is installed
+ #   yum:
+ #     name: python3
+ #     state: present
+
+  - name: check python3
+    ansible.builtin.debug:
+      msg: "{{ ansible_facts.packages['python3'] | map(attribute='version') | list }} version of python3 installed"
+    when: "'python3' in ansible_facts.packages"
+

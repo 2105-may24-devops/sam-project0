@@ -1,0 +1,5 @@
+- name: My task
+  hosts: vm3
+  tasks:
+     - name: Leaving a mark
+       shell: touch ~/ansible_test

@@ -1,0 +1,6 @@
+- name: Delete Project
+  hosts: vm5
+
+  tasks:
+  - name: Delete folder of project in remote
+    shell: rm -rf ~/project0

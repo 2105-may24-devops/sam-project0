@@ -1,0 +1,23 @@
+- name: Check remote host for python3, python3-venv and git version
+  hosts: vm5
+  tasks:
+ # Not working due to error with yum, using James' code as baseline
+ # - name: Ensure python is installed
+ #   yum:
+ #     name: python3
+ #     state: present
+
+  - name: gather facts
+    ansible.builtin.package_facts: # returns list of all packages, including an attribute called 'version'
+      manager: apt
+  - name: check python3 version
+    ansible.builtin.debug:
+      msg: "{{ ansible_facts.packages['python3'] | map(attribute='version') | list }} version of python3 installed"
+    when: "'python3' in ansible_facts.packages"
+  - name: check python3-venv version
+    ansible.builtin.debug:
+      msg: "{{ ansible_facts.packages['python3-venv'] | map(attribute='version') | list }} version of python3-venv installed"
+  - name: check git version
+    ansible.builtin.debug:
+      msg: "{{ ansible_facts.packages['git'] | map(attribute='version') | list }} version of git installed"
+    when: "'git' in ansible_facts.packages"

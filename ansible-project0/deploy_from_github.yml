@@ -1,0 +1,7 @@
+- name: clones github repository into remote
+  hosts: vm5
+  tasks:
+    - name: clone given repository
+      git:
+        repo: https://github.com/2105-may24-devops/sam-project0
+        dest: ~/project0
