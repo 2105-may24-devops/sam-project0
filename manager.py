@@ -2,6 +2,7 @@ from datetime import datetime
 from os import listdir
 from bank import Bank
 import sys
+import unittest
 
 banks = dict()
 data_location = "data/"
@@ -277,15 +278,39 @@ def manage_customer(customer):
             elif user_input == "R":
                 return
 
+########################### TESTS ##############################################################
+class TestMethods(unittest.TestCase):
+
+    def test_text_input(self):
+        print("Ran Test",test_num)
+        if test_num == 1:
+            assert len(banks) == 1
+            assert len(banks["Bank of Poor Financial Choices"].customers) == 1
+            assert banks["Bank of Poor Financial Choices"].customers[0].name == "Bad Luck Laurence"
+            assert banks["Bank of Poor Financial Choices"].customers[0].accounts["Savings"].balance == 50
+        if test_num == 2:
+            assert len(banks) == 2
+
+            assert len(banks["MTB"].customers == 3)
+            assert len(banks["MTB"].customers[0].accounts == 3)
+            assert banks["MTB"].total_funds() == 9138.02
+
+            assert len(banks["BoA"].customers == 2)
+            assert len(banks["BoA"].customers[0].accounts == 2)
+            assert banks["BoA"].total_funds() == 113934.21
+
+
 """
 Main/base of program and user access. User can add or access banks, or
 export all currently loaded banks into a file that can imported to access data.
 """
 if __name__ == '__main__':
 
+    test_time = False
+    test_num = 0
     print("Welcome to our Bank Management CLI!")
     user_input = None
-    choices = {"A","L","M","S","Q"}
+    choices = {"A","L","M","S","Q","TEST_RUN1","TEST_RUN2"}
     while user_input != "Q":
 
         print_choices("")
@@ -321,3 +346,9 @@ if __name__ == '__main__':
             elif user_input == "S":
                 for bank in banks:
                     banks[bank].export_to_csv(data_location + bank + ".csv")
+            elif user_input == "TEST_RUN1" or user_input == "TEST_RUN2":
+                test_time = True
+                test_num = user_input[-1:]
+
+    if test_time:
+        unittest.main()

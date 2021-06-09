@@ -1,0 +1,23 @@
+A
+E
+Bank of Poor Financial Choices
+M
+Bank of Poor Financial Choices
+C
+Bad Luck Laurence
+M
+0
+a
+Savings
+300
+B
+Savings
+-250
+Hospital Bills
+L
+Savings
+R
+R
+R
+TEST_RUN1
+Q
