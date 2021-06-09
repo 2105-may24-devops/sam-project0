@@ -213,7 +213,7 @@ class TestMethods(unittest.TestCase):
         assert len(bank.customers) == 4
 
         # All data is tested against test_export.csv
-        assert bank2.customers[0].name == "Sam"
+        assert bank2.customers[0].name == "Sa"
         assert bank2.customers[1].name == "Joe"
         assert bank2.customers[2].name == "Jane"
         assert bank2.customers[3].name == "Max"
