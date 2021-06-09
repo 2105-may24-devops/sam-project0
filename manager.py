@@ -1,6 +1,7 @@
 from datetime import datetime
 from os import listdir
 from bank import Bank
+import sys
 
 banks = dict()
 data_location = "data/"

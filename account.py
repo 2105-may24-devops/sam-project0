@@ -52,13 +52,17 @@ class Account():
                 log_index += 1
         """
 
-        log = "Log for {}".format(self.name)
+        max_len_name = max(max_len_name, len("Transaction Name"))
+        max_len_curr = max(max_len_curr, len("Transaction Amount"))
+
+        log = "Log for {}\n".format(self.name)
+        log += "{0:{1}}\t{2:{3}}\t{4}".format("Transaction Name", max_len_name, "Transaction Amount", max_len_curr, "Transaction Date")
         while log_index < len(self.transactions):
 
             current = self.transactions[log_index]
             text, curr, date = current[0], current[1], current[2]
             #log += f'{text:max_len_name} {curr:max_len_curr}  {date}'
-            log += "\nTransaction Name: {0:{1}}\tTransaction Amount: {2:{3}}\tTransaction Date: {4}".format(current[0],max_len_name,current[1],max_len_curr,current[2])
+            log += "\n{0:{1}}\t{2:{3}.2f}\t{4}".format(current[0],max_len_name,current[1],max_len_curr,current[2])
             log_index += 1
 
         return log
