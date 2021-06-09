@@ -188,7 +188,7 @@ def manage_bank(bank_name):
     while user_input != "R":
 
         print("Managing {} currently".format(bank_name))
-        print("Current funds held: {}".format(banks[bank_name].total_funds()))
+        print("Current funds held: {0:.2f}".format(banks[bank_name].total_funds()))
 
         print_choices("manage_bank")
 
